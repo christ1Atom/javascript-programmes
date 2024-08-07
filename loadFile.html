@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.-0"/>
+	<meta name="generator" content="Keep Learning">
+	<title>Keep Learning</title>
+	<style>
+		*{box-sizing:border-box; margin:0px; padding:0px;}
+		body{text-align:center;}
+		form{margin-top:10%; text-align:center;}
+		button{background:blue; padding:10px; font-size:1.2em; outline:white; color:white; border:none;}
+		video{margin:0 auto; display:block; margin-top:30px;}
+	</style>
+</head>
+<body>
+	<div>
+		<form action="#" method="post" name="video" enctype="multipart/form-data" id="videForm">
+			<label for="video">Video</label>
+			<br>
+			<input type="file" name="video" accept="video/*" id="fileInput"/>
+			<button>submit</button>
+		</form>
+		<video width="400px" id="videoEl">
+			Browser does not support the video tag !
+		</video>
+		<div class="divClass"></div>
+		<div class="videoClass"></div>
+	</div>
+	<script>
+		const videoEl = document.getElementById('videoEl'); // as HTMLVideoelement;
+		const fileInput = document.getElementById('fileInput'); // ass HTMLInputELement;
+		const videoForm = document.getElementById('videForm'); // as HTMLformElemetn;
+		const divClass = document.querySelector('.divClass'); // div divClass;
+		const videoClass = document.querySelector('.videoClass');
+		let timeStamp=[];
+		let i=0;
+		let p = document.createElement('p');
+
+
+		document.addEventListener('DOMContentLoaded',(ev)=>{
+			fileInput.addEventListener('change',(ev)=>{
+				console.dir(fileInput.files[0]);
+				console.dir(fileInput.files[0].name);
+				console.dir(fileInput.files[0].size);
+				console.dir(fileInput.files[0].type);
+					if(fileInput.files[0].type.indexOf("video/") > -1){
+						videoEl.src=window.URL.createObjectURL(fileInput.files[0]);
+						let videoTag = document.createElement('video');
+						videoTag.style.width='300px';
+						videoTag.src=window.URL.createObjectURL(fileInput.files[0]);
+						p.innerHTML="Name: " + fileInput.files[0].name + "<br>" + 
+						    "Size: " + fileInput.files[0].size + "<br>" +  
+						    "Type: " + fileInput.files[0].type; 
+						let p1=document.createElement('p');
+						p1.innerHTML="Name: " + fileInput.files[0].name + "<br>" + 
+						    "Size: " + fileInput.files[0].size + "<br>" +  
+						    "Type: " + fileInput.files[0].type; 
+						divClass.appendChild(p);
+						videoClass.appendChild(videoTag);
+						videoClass.appendChild(p1);
+
+					}
+			});
+		});
+
+		/*
+		videoForm.addEventListener('submit',(event)=>{
+			console.log('for submitting video');
+			fetch(videoForm.action,{
+				method:'POST',
+				body: new FormData(videoForm),
+			});
+			event.preventDefault();
+		});
+
+		fileInput.addEventListener('change',(event)=>{
+				if(event?.target?.files && event.target.file[0]){
+					console.log('loading files');
+					videoEl.src= URL.createObjectURL(event.target.files[0]);
+					videoEl.load();
+				}
+		});
+	       */
+	</script>
+</body>
+</html>
+
